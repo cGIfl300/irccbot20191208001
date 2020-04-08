@@ -26,13 +26,13 @@ Affiche les statistiques.
 **join canal**  
 Demande au robot de rejoindre un canal.  
 
-**.bible livre chapitre:verset*-verset***  
+**.bible livre chapitre:verset-verset**  
 Affiche un verset de la Bible en langue anglaise.  
 
-**.biblefr livre chapitre:verset*-verset***  
+**.biblefr livre chapitre:verset-verset**  
 Affiche un verset de la Bible en français.  
 
-**.biblede livre chapitre:verset*-verset***  
+**.biblede livre chapitre:verset-verset**  
 Affiche un verset de la Bible en allemand.  
 
 *C'était intéressant de voir comment on pouvait créer un robot de discution en ligne et l'interfacer avec un site externe.*  
