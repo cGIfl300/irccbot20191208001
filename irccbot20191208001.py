@@ -1,4 +1,4 @@
-'''
+''''
 @package irccbot20191208001
 irccbot20191208001
 '''
