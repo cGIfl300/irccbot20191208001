@@ -1,13 +1,14 @@
-''''
+"""'
 @package irccbot20191208001
 irccbot20191208001
-'''
+"""
 import irc.bot
 import requests
 import irc.strings
 from irc.client import ip_numstr_to_quad, ip_quad_to_numstr
 
-secure_nick = "cGIfl300" # The one who can kill the bot
+secure_nick = "cGIfl300"  # The one who can kill the bot
+
 
 class IRCBot(irc.bot.SingleServerIRCBot):
     def __init__(self, channel, nickname, server, port=6667):
@@ -25,15 +26,13 @@ class IRCBot(irc.bot.SingleServerIRCBot):
 
     def on_pubmsg(self, c, e):
         a = e.arguments[0].split(":", 1)
-        if len(a) > 1 and irc.strings.lower(a[0]) == irc.strings.lower(
-            self.connection.get_nickname()
-        ):
+        if len(a) > 1 and irc.strings.lower(a[0]) == irc.strings.lower(self.connection.get_nickname()):
             self.do_command(e, a[1].strip())
         return
 
     def on_dccmsg(self, c, e):
         # non-chat DCC messages are raw bytes; decode as text
-        text = e.arguments[0].decode('utf-8')
+        text = e.arguments[0].decode("utf-8")
         c.privmsg("You said: " + text)
 
     def on_dccchat(self, c, e):
@@ -49,21 +48,21 @@ class IRCBot(irc.bot.SingleServerIRCBot):
             self.dcc_connect(address, port)
 
     def do_verset(self, versets, version, supprime):
-        versets = versets.replace(supprime,"")
-        versets = versets.replace(" ","")
-        url = "https://www.biblegateway.com/passage/?search="+versets+"&version="+version+"&interface=print"
+        versets = versets.replace(supprime, "")
+        versets = versets.replace(" ", "")
+        url = "https://www.biblegateway.com/passage/?search=" + versets + "&version=" + version + "&interface=print"
         try:
             pagecontent = requests.get(url)
             pagecontent.liste = pagecontent.text.split("\n")
-            for ligne in pagecontent.liste :
-                if ligne.find("<meta property=\"og:description\" content=\"") == 0:
-                    ligne = ligne.replace("<meta property=\"og:description\" content=\"","")
-                    ligne = ligne.replace("\"/>","")
-                    ligne = ligne.replace("&amp;#39;","\'")
+            for ligne in pagecontent.liste:
+                if ligne.find('<meta property="og:description" content="') == 0:
+                    ligne = ligne.replace('<meta property="og:description" content="', "")
+                    ligne = ligne.replace('"/>', "")
+                    ligne = ligne.replace("&amp;#39;", "'")
                     return ligne
         except:
             return "Verse not found."
-    
+
     def do_command(self, e, cmd):
         nick = e.source.nick
         c = self.connection
@@ -106,6 +105,7 @@ class IRCBot(irc.bot.SingleServerIRCBot):
                 c.notice(nick, "Verse not found.")
         else:
             c.notice(nick, "Not understood: " + cmd)
+
 
 def main():
     import sys
