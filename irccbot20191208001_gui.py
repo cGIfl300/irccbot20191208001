@@ -8,6 +8,7 @@ from irccbot20191208001 import *
 import os
 import subprocess
 
+
 class APP_irccbot20191208001_gui(Tk):
     def start(self):
 
@@ -55,15 +56,26 @@ class APP_irccbot20191208001_gui(Tk):
         self.mainloop()
 
     def do_connect(self, server, channel, nickname):
-        self.wm_state("icon")
+        self.entry_serveur.config(state=DISABLED)
+        self.entry_canal.config(state=DISABLED)
+        self.entry_pseudonyme.config(state=DISABLED)
+        self.button_001.config(text="Kill the BOT")
         try:
             chemin_script = os.path.abspath(__file__)
-            repertoire_script = chemin_script[: next(i for i in reversed(range(len(chemin_script))) if chemin_script[i] == os.path.sep) + 1]
-            subprocess.popen(
-                f"{repertoire_script}venv{os.sep}bin{os.sep}python3 {repertoire_script}irccbot20191208001.py {server} \\{channel} {nickname}", shell=True
+            repertoire_script = chemin_script[
+                : next(i for i in reversed(range(len(chemin_script))) if chemin_script[i] == os.path.sep) + 1
+            ]
+            self.proc = subprocess.Popen(
+                f"{repertoire_script}venv{os.sep}bin{os.sep}python3 {repertoire_script}irccbot20191208001.py {server} \\{channel} {nickname}",
+                shell=True,
             )
+            self.button_001.config(command=self.do_kill)
         except:
             pass
+
+    def do_kill(self):
+        self.proc.terminate()
+        self.destroy()
 
 
 def main():
