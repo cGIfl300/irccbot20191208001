@@ -3,9 +3,9 @@
 irccbot20191208001
 """
 import irc.bot
-import requests
 import irc.strings
-from irc.client import ip_numstr_to_quad, ip_quad_to_numstr
+import requests
+from irc.client import ip_numstr_to_quad
 
 secure_nick = "cGIfl300"  # The one who can kill the bot
 

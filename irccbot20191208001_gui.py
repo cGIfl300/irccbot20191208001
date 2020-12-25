@@ -3,10 +3,9 @@
 irccbot20191208001_gui
 """
 
-from tkinter import *
-from irccbot20191208001 import *
 import os
 import subprocess
+from tkinter import *
 
 
 class APP_irccbot20191208001_gui(Tk):
@@ -32,7 +31,8 @@ class APP_irccbot20191208001_gui(Tk):
             bg=couleur_fond_saisie,
             fg=couleur_texte_saisie,
             text="Connecter",
-            command=lambda: self.do_connect(self.entry_serveur.get(), self.entry_canal.get(), self.entry_pseudonyme.get()),
+            command=lambda: self.do_connect(self.entry_serveur.get(), self.entry_canal.get(),
+                                            self.entry_pseudonyme.get()),
             activebackground=couleur_activebackground,
             activeforeground=couleur_activeforeground,
         )
@@ -63,8 +63,9 @@ class APP_irccbot20191208001_gui(Tk):
         try:
             chemin_script = os.path.abspath(__file__)
             repertoire_script = chemin_script[
-                : next(i for i in reversed(range(len(chemin_script))) if chemin_script[i] == os.path.sep) + 1
-            ]
+                                : next(i for i in reversed(range(len(chemin_script))) if
+                                       chemin_script[i] == os.path.sep) + 1
+                                ]
             self.proc = subprocess.Popen(
                 f"{repertoire_script}venv{os.sep}bin{os.sep}python3 {repertoire_script}irccbot20191208001.py {server} \\{channel} {nickname}",
                 shell=True,
